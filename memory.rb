@@ -38,7 +38,7 @@ class MemoryGame
 
   def make_guess(pos)
     revealed_value = board.reveal(pos)
-    player.receive_revealed_card(pos, revealed_value) 
+    player.receive_revealed_card(pos, revealed_value)
     board.render
 
     compare_guess(pos)
@@ -54,8 +54,13 @@ class MemoryGame
   def play
     until board.won?
       board.render
-      pos = get_player_input
-      make_guess(pos)
+      begin
+        pos = get_player_input
+        make_guess(pos)
+      rescue StandardError => error
+        puts "#{error.message}"
+        retry
+      end
     end
 
     puts "Congratulations, you win!"
@@ -74,5 +79,5 @@ end
 
 if __FILE__ == $PROGRAM_NAME
   size = ARGV.empty? ? 4 : ARGV.shift.to_i
-  MemoryGame.new(ComputerPlayer.new(size), size).play
+  MemoryGame.new(HumanPlayer.new(size), size).play
 end

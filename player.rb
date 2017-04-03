@@ -1,4 +1,4 @@
-class HumanPlayer 
+class HumanPlayer
   attr_accessor :previous_guess
 
   def initialize(size)
@@ -12,7 +12,7 @@ class HumanPlayer
 
   def prompt
     puts "Please enter the position of the card you'd like to flip (e.g., '2,3')"
-    print "> "
+    print ">"
   end
 
   def parse(string)
@@ -28,7 +28,7 @@ class HumanPlayer
   end
 end
 
-class ComputerPlayer 
+class ComputerPlayer
   attr_accessor :previous_guess, :board_size
 
   def initialize(size)
@@ -39,7 +39,7 @@ class ComputerPlayer
   end
 
   def receive_revealed_card(pos,value)
-    @known_cards[pos] = value 
+    @known_cards[pos] = value
   end
 
   def receive_match(pos1, pos2)
@@ -49,7 +49,7 @@ class ComputerPlayer
 
   def get_input
     if previous_guess
-      second_guess 
+      second_guess
     else
       first_guess
     end

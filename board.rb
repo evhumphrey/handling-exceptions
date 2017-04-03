@@ -1,5 +1,8 @@
 require_relative "card"
 
+class InvalidFlipError < StandardError
+end
+
 class Board
   attr_reader :size
 
@@ -25,10 +28,11 @@ class Board
 
   def reveal(pos)
     if revealed?(pos)
-      puts "You can't flip a card that has already been revealed."
+      raise InvalidFlipError.new("You can't flip a card that has already been revealed.")
     else
       self[pos].reveal
     end
+
     self[pos].value
   end
 
@@ -51,7 +55,12 @@ class Board
   end
 
   def revealed?(pos)
-    self[pos].revealed?
+    if self[pos].revealed?
+      true
+    else
+      false
+    end
+
   end
 
   def won?
